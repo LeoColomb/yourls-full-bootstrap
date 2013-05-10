@@ -36,13 +36,9 @@ function lpc_full_bootstrap_assets() {
 }
 
 function lpc_full_bootstrap_nav_start() {
-    ?>
-    <div class="navbar navbar-static-top">
-<?php
+    echo '<div class="navbar navbar-static-top">';
 }
 
 function lpc_full_bootstrap_nav_end() {
-    ?>
-    </div>
-<?php
+    echo '</div>';
 }
