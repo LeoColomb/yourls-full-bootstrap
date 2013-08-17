@@ -6,6 +6,7 @@ function lc_full_bootstrap_init() {
 	yourls_add_filter( 'template_content', 'lc_full_bootstrap_template' );
 	lc_full_bootstrap_add_css();
 	yourls_add_filter( 'admin_menu_start', 'lc_full_bootstrap_menu_start' );
+	yourls_add_filter( 'admin_menu_end', 'lc_full_bootstrap_menu_end' );
 	yourls_add_filter( 'logout_link', 'lc_full_bootstrap_logout_link' );
 }
 
@@ -22,7 +23,13 @@ function lc_full_bootstrap_add_css() {
 }
 
 function lc_full_bootstrap_nav_start() {
-	echo '<header class="navbar navbar-inverse navbar-fixed-top" role="banner"><div class="container">';
+	echo '<header class="navbar navbar-inverse navbar-fixed-top" role="banner"><div class="container">
+	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+	  <span class="sr-only">Toggle navigation</span>
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	</button>';
 }
 
 function lc_full_bootstrap_nav_end() {
@@ -33,8 +40,15 @@ function lc_full_bootstrap_menu_start( $menu ) {
 	return '<nav class="collapse navbar-collapse navbar-ex1-collapse" role="navigation"><ul class="nav navbar-nav">';
 }
 
-function lc_full_bootstrap_logout_link() {
-	return '<div class="navbar-right"><p class="navbar-text">' . sprintf( yourls__( 'Hello <strong>%s</strong>' ), YOURLS_USER ) . '</p><button type="button" class="btn btn-default navbar-btn"><a href="?action=logout" title="' . yourls_esc_attr__( 'Logout' ) . '"><i class="icon-signout"></i> ' . yourls__( 'Logout' ) . '</a></button></div>';
+function lc_full_bootstrap_menu_end( $menu ) {
+	return '</ul>' . lc_full_bootstrap_logout_link( '', true ) . '</nav>' ;
+}
+
+function lc_full_bootstrap_logout_link( $link, $show = false ) {
+	if( $show && yourls_is_private() && defined( 'YOURLS_USER' ) ) {
+		return '<div class="navbar-right"><p class="navbar-text">' . sprintf( yourls__( 'Hello <strong>%s</strong>' ), YOURLS_USER ) . '</p><a href="?action=logout" title="' . yourls_esc_attr__( 'Logout' ) . '" class="btn btn-default navbar-btn"><i class="icon-signout"></i> ' . yourls__( 'Logout' ) . '</a></div>';
+	} else
+		return '';
 }
 
 // Helper unction to remove an element, based on its value, from a multidimensional array
