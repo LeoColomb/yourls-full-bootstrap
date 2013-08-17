@@ -22,15 +22,15 @@ function lc_full_bootstrap_add_css() {
 }
 
 function lc_full_bootstrap_nav_start() {
-	echo '<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation"><div class="container">';
+	echo '<header class="navbar navbar-inverse navbar-fixed-top" role="banner"><div class="container">';
 }
 
 function lc_full_bootstrap_nav_end() {
-	echo '<div></nav>';
+	echo '</div></header>';
 }
 
 function lc_full_bootstrap_menu_start( $menu ) {
-	return '<div class="collapse navbar-collapse navbar-ex1-collapse"><ul class="nav navbar-nav">';
+	return '<nav class="collapse navbar-collapse navbar-ex1-collapse" role="navigation"><ul class="nav navbar-nav">';
 }
 
 function lc_full_bootstrap_logout_link() {
