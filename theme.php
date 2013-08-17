@@ -1,44 +1,25 @@
 <?php
-/*
-Theme Name: Full Bootstrap
-Theme URI: http://getbootstrap.com
-Description: hhhh
-Version: 1.0
-Author: Leo Colomb
-Author URI: http://colombaro.fr/
-*/
 
-yourls_add_filter( 'html_template_content', 'lpc_full_bootstrap_template' );
-yourls_add_filter( 'html_assets_queue', 'lpc_full_bootstrap_assets' );
-
-function lpc_full_bootstrap_template() {
-    return $elements = array(
-        'before' => array(
-			'yourls_wrapper_start',
-            'lpc_full_bootstrap_nav_start',
-            'yourls_html_logo',
-            'yourls_html_menu',
-            'lpc_full_bootstrap_nav_end',
-            ),
-        'after' => array(
-        	'yourls_html_footer',
-			'yourls_wrapper_end',
-        ),
-    );
+// Is there things to display? If so, let's add our stuff
+yourls_add_action( 'init_theme', 'lc_full_bootstrap_init' );
+function lc_full_bootstrap_init() {
+	yourls_add_filter( 'template_content', 'lc_full_bootstrap_template' );
+	lc_full_bootstrap_add_css();
 }
 
-function lpc_full_bootstrap_assets() {
-    return $assets = array(
-        'css' => array(
-            'bootstrap.min',
-            ),
-    );
+function lc_full_bootstrap_template( $elements ) {
+	sample_theme_replace_in_array( $elements, 'yourls_sidebar_start', 'lc_full_bootstrap_nav_start' );
+	sample_theme_replace_in_array( $elements, 'yourls_sidebar_end', 'lc_full_bootstrap_nav_end' );
 }
 
-function lpc_full_bootstrap_nav_start() {
+function lc_full_bootstrap_add_css() {
+	yourls_enqueue_style( 'lc_full_bootstrap_css', yourls_get_active_theme_url() . '/css/bootstrap.min.css' );
+}
+
+function lc_full_bootstrap_nav_start() {
     echo '<div class="navbar navbar-static-top">';
 }
 
-function lpc_full_bootstrap_nav_end() {
+function lc_full_bootstrap_nav_end() {
     echo '</div>';
 }
