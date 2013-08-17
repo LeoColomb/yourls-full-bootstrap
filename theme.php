@@ -6,6 +6,7 @@ function lc_full_bootstrap_init() {
 	yourls_add_filter( 'template_content', 'lc_full_bootstrap_template' );
 	lc_full_bootstrap_add_css();
 	yourls_add_filter( 'admin_menu_start', 'lc_full_bootstrap_menu_start' );
+	yourls_add_filter( 'logout_link', 'lc_full_bootstrap_logout_link' );
 }
 
 function lc_full_bootstrap_template( $elements ) {
@@ -21,16 +22,19 @@ function lc_full_bootstrap_add_css() {
 }
 
 function lc_full_bootstrap_nav_start() {
-	echo '<nav class="navbar navbar-fixed-top" role="navigation">';
+	echo '<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation"><div class="container">';
 }
 
 function lc_full_bootstrap_nav_end() {
-	echo '</nav>';
+	echo '<div></nav>';
 }
 
 function lc_full_bootstrap_menu_start( $menu ) {
-	$menu = '<div class="collapse navbar-collapse navbar-ex1-collapse"><ul class="nav navbar-nav">';
-	return $menu;
+	return '<div class="collapse navbar-collapse navbar-ex1-collapse"><ul class="nav navbar-nav">';
+}
+
+function lc_full_bootstrap_logout_link() {
+	return '<div class="navbar-right"><p class="navbar-text">' . sprintf( yourls__( 'Hello <strong>%s</strong>' ), YOURLS_USER ) . '</p><button type="button" class="btn btn-default navbar-btn"><a href="?action=logout" title="' . yourls_esc_attr__( 'Logout' ) . '"><i class="icon-signout"></i> ' . yourls__( 'Logout' ) . '</a></button></div>';
 }
 
 // Helper unction to remove an element, based on its value, from a multidimensional array
